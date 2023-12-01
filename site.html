@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="estilo.css" media="screen" />
+    <style>
+         * {
+            margin: 0;
+            padding: 0;
+            border: none;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style-type: none;
+        }
+
+        body {
+            background-image: url(imagem/background.png);
+            background-size: cover;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 18px;
+            margin: 0;
+        }
+
+        header {
+            background-image: url(imagem/bordacima.png);
+            background-size: cover;
+            background-position: top;
+            height: 50px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            color: white;
+            position: relative;
+        }
+        
+        section {
+            
+            background-color: #DDD;
+            width: 90%;
+            height: 800px;
+            padding: 15px;
+            margin-top: 5%;
+            margin-left: 5%;
+            border-radius: 15px
+        }
+
+        .admintecanto {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .admintecanto h2 {
+            margin-right: 10px;
+            color: white;
+        }
+
+        .admintecanto img {
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-top: 0%;
+            margin-left: 1%;
+        }
+        
+        .form-group a {
+        background-color: #4e1eec;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        }
+        .form-group a:hover{
+            background-color: #4e1eecce;
+        }
+        
+        .produtos-container {
+            width: 80%; /* Ajuste a largura conforme necessário */
+            margin: 20px auto; /* Centraliza a div e adiciona espaço ao redor */
+        }
+
+        .produtos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .produto {
+            width: 22%;
+            margin: 1%;
+            position: relative;
+            background-color: #fff;
+            border-radius: 8px;
+        
+        }
+
+        .produto img {
+            width: 50%;
+            border-radius: 5px;
+            margin-left: 25%;
+            margin-top: 5%;
+        }
+
+        .info-produto {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            background-color: #fff;
+            border-radius: 0 0 5px 5px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        .catalogo {
+            display: none;
+            position: absolute;
+            top: 50px; /* Posiciona abaixo do header */
+            right: 0;
+            background-color: #f9f9f9;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .catalogo a {
+            color: black;
+            padding: 12px 16px;
+            display: block;
+            text-decoration: none;
+        }
+        .preco {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .selecionado {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .finalizar-compra {
+            color: white;
+            padding: 4%;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .carrinho {
+            display: flex;
+            align-items: flex-end;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .carrinho img {
+            display: flex;
+            cursor: pointer;
+            width: 30px;
+            margin-bottom: 5px;
+        }
+
+        .quantia-dinheiro {
+            font-weight: bold;
+        }
+        .search-container {
+            align-self: center;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+        .search-container .suggestions {
+            position: absolute;
+            left: 18px;
+            top: 66px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            max-height: 100px;
+            overflow-y: auto;
+            display: none;
+            color: black;
+        }
+
+        .search-container .suggestions li {
+            list-style: none;
+            padding: 8px;
+            cursor: pointer;
+        }
+        input[type=text] {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .X {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #d40a0a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .X:hover {
+            background-color: #bb0909;
+        }
+        .O {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #34db37;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .O:hover {
+            background-color: #06c209;
+        }
+        button:hover {
+            background-color: #2c89c7;
+        }
+        
+        .botao-comprar {
+            display: block;
+            margin: 0 auto; /* Centraliza o botão horizontalmente dentro da .info-produto */
+            padding: 5px 10px; /* Ajuste conforme necessário */
+            background-color: #007bff; /* Altere para a cor desejada */
+            color: #fff; /* Altere para a cor desejada */
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .nome-produto{
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        </style>
+    <title>Site</title>
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <header>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Busque aqui seu produto">
+            <ul class="suggestions"></ul>
+        </div>
+        <script>
+            function searchProduct() {
+                var searchInput = document.getElementById('searchInput').value;
+                
+                // Aqui você pode adicionar a lógica para redirecionar para a página de resultados de busca
+                // Exemplo simples: redirecionar para uma página com o termo de pesquisa na URL
+                window.location.href = 'resultados.html?search=' + encodeURIComponent(searchInput);
+            }
+        </script>
+        <div class="admintecanto">
+            <h2>ADMINTEC</h2>
+            <details>
+                <summary> <img src="imagem/tresbarranormal.png" onclick="toggleCatalogo()" height="40" width="40"></summary>
+                <!-- Conteúdo do catálogo -->
+                <div class="catalogo">
+                    <a href="#">Item 1</a>
+                    <a href="#">Item 2</a>
+                    <a href="#">Item 3</a>
+                </div>
+            </details>
+        </div>
+    </header>
+    <div class="carrinho" id="carrinho" onclick="mostrarCarrinho()">
+        <img src="imagem/carrinhodecompra.png" alt="Carrinho de Compras">
+        <span class="quantia-dinheiro">R$ 0,00</span>
+        <button class="X" onclick="resetarQuantiaDinheiro()">X</button>
+        <button class="O" onclick="redirecionarProximoSite()">O</button>
+    </div>
+     <div class="produtos-container">
+        <section class="produtos">
+        <!-- Produto 1 -->
+        <div class="produto">
+            <img src="imagem/produto1.png" alt="Produto Teste">
+            <div class="info-produto" id="trempe-de-fogao">
+                    <span class="nome-produto"> Trempe de Fogão</span>
+                    <span class="preco">R$ 61,00</span>
+                <button class="finalizar-compra" onclick="finalizarCompra(this)">Comprar</button>
+            </div>
+        </div>
+         <!-- Produto 2 -->
+         <div class="produto">
+            <img src="imagem/produto2.png" alt="Produto Teste">
+            <div class="info-produto" id="painel-de-controle">
+                <span class="nome-produto"> Painel de Controle</span>
+                <span class="preco">R$ 59,00</span>
+                <button class="finalizar-compra" onclick="finalizarCompra(this)">Comprar</button>
+            </div>
+        </div>
+          <!-- Produto 3 -->
+        <div class="produto">
+            <img src="imagem/produto3.png" alt="Produto Teste">
+            <div class="info-produto" id="placa-de-lavadora">
+                <span class="nome-produto"> Placa de Lavadora</span>
+                <span class="preco">R$ 36,00</span>
+                <button class="finalizar-compra" onclick="finalizarCompra(this)">Comprar</button>
+            </div>
+        </div>
+         <!-- Produto 4 -->
+         <div class="produto">
+            <img src="imagem/produto4.png" alt="Produto Teste">
+            <div class="info-produto" id="placa-de-geladeira">
+                <span class="nome-produto"> Placa de Geladeira</span>
+                <span class="preco">R$ 140,00</span>
+                <button class="finalizar-compra" onclick="finalizarCompra(this)">Comprar</button>
+            </div>
+        </div>
+         <!-- Produto 5 -->
+         <div class="produto">
+            <img src="imagem/produto5.png" alt="Produto Teste">
+            <div class="info-produto" id="motor-de-ventilador">
+                <span class="nome-produto"> Motor de Ventilador</span>
+                <span class="preco">R$ 102,00</span>
+                <button class="finalizar-compra" onclick="finalizarCompra(this)">Comprar</button>
+            </div>
+        </div>
+         <!-- Produto 6 -->
+         <div class="produto">
+            <img src="imagem/produto6.png" alt="Produto Teste">
+            <div class="info-produto" id="motor-de-geladeira">
+                <span class="nome-produto"> Motor de Geladeira</span>
+                <span class="preco">R$ 450,00</span>
+                <button class="finalizar-compra" onclick="finalizarCompra(this)">Comprar</button>
+            </div>
+        </div>
+         <!-- Produto 7 -->
+         <div class="produto">
+            <img src="imagem/produto7.png" alt="Produto Teste">
+            <div class="info-produto" id="motor-prato-microondas">
+                <span class="nome-produto"> Motor Prato Microondas</span>
+                <span class="preco">R$ 79,00</span>
+                <button class="finalizar-compra" onclick="finalizarCompra(this)">Comprar</button>
+            </div>
+        </div>
+         <!-- Produto 8 -->
+         <div class="produto">
+            <img src="imagem/produto8.png" alt="Produto Teste">
+            <div class="info-produto" id="eixo-da-lavadora">
+                <span class="nome-produto"> Eixo da Lavadora</span>
+                <span class="preco">R$ 9999999,00</span>
+                <button class="finalizar-compra" onclick="finalizarCompra(this)">Comprar</button>
+            </div>
+        </div>
+        <!-- Produto 9 -->
+        <div class="produto">
+            <img src="imagem/produto9.png" alt="Produto Teste">
+            <div class="info-produto" id="placa-de-refrigerador">
+                <span class="nome-produto"> Placa de Refrigerador</span>
+                <span class="preco">R$ 119,00</span>
+                <button class="finalizar-compra" onclick="finalizarCompra(this)">Comprar</button>
+            </div>
+        </div>
+         <!-- Produto 10 -->
+        <div class="produto">
+            <img src="imagem/produto10.png" alt="Produto Teste">
+            <div class="info-produto" id="placa-controle-eletronico">
+                <span class="nome-produto"> Placa Controle Eletrônico</span>
+                <span class="preco">R$ 97,00</span>
+                <button class="finalizar-compra" onclick="finalizarCompra(this)">Comprar</button>
+            </div>
+        </div>
+         <!-- Produto 11 -->
+        <div class="produto">
+            <img src="imagem/produto11.png" alt="Produto Teste">
+            <div class="info-produto" id="interruptor-tampa-lavadoras">
+                <span class="nome-produto"> Interruptor Lavadoras</span>
+                <span class="preco">R$ 450,00</span>
+                <button class="finalizar-compra" onclick="finalizarCompra(this)">Comprar</button>
+            </div>
+        </div>
+        <!-- Repita para outros produtos... -->
+
+    </section>
+</div>    
+    
+<script>
+    function toggleCatalogo() {
+            const detalhes = document.querySelector('details');
+            detalhes.open = !detalhes.open;
+        }
+    let valorTotal = 0;
+
+    function adicionarProduto(preco) {
+        valorTotal += preco;
+        atualizarCarrinho();
+    }
+
+    function atualizarCarrinho() {
+    const botoesCompra = document.querySelectorAll('.finalizar-compra');
+    
+    botoesCompra.forEach(botao => botao.style.display = 'block');
+
+    const quantiaDinheiroElement = document.querySelector('.quantia-dinheiro');
+    quantiaDinheiroElement.textContent = formatarDinheiro(valorTotal);
+}
+
+    function formatarDinheiro(valor) {
+        return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    function redirecionar() {
+        // Implemente aqui a lógica para redirecionar para o outro site
+        window.location.href = "https://www.seu-outro-site.com";
+    }
+
+    function finalizarCompra(botao) {
+        const precoProduto = parseFloat(botao.parentElement.querySelector('.preco').textContent.replace('R$', '').trim());
+        adicionarProduto(precoProduto);
+    }
+    $(document).ready(function () {
+            var produtos = [
+                { nome: 'Trempe de Fogão', id: 'trempe-de-fogao' },
+                { nome: 'Painel de Controle', id: 'painel-de-controle' },
+                { nome: 'Placa de Lavadora', id: 'placa-de-lavadora' },
+                { nome: 'Placa de Geladeira', id: 'placa-de-geladeira' },
+                { nome: 'Motor de Ventilador', id: 'motor-de-ventilador' },
+                { nome: 'Motor de Geladeira', id: 'motor-de-geladeira' },
+                { nome: 'Motor Prato Microondas', id: 'motor-prato-microondas' },
+                { nome: 'Eixo da Lavadora', id: 'eixo-da-lavadora' },
+                { nome: 'Placa de Refrigerador', id: 'placa-de-refrigerador' },
+                { nome: 'Placa Controle Eletrônico', id: 'placa-controle-eletronico' },
+                { nome: 'Interruptor Lavadoras', id: 'interruptor-tampa-lavadoras' },
+                { nome: 'Motor Prato Microondas', id: 'motor-prato-microondas' }
+            ];
+
+            $('#searchInput').on('input', function () {
+                var termoBusca = $(this).val().toLowerCase();
+                var sugestoes = [];
+
+                sugestoes = produtos.filter(function (produto) {
+                    return produto.nome.toLowerCase().includes(termoBusca);
+                });
+
+                atualizarSugestoes(sugestoes);
+            });
+
+            $('.search-container').on('click', '.suggestions li', function () {
+                var sugestao = $(this).text();
+                $('#searchInput').val(sugestao);
+                $('.suggestions').hide();
+
+                // Navegar até o elemento correspondente ao nome no site
+                var elementoCorrespondente = $('#' + produtos.find(p => p.nome === sugestao).id);
+                if (elementoCorrespondente.length) {
+                    $('html, body').animate({
+                        scrollTop: elementoCorrespondente.offset().top
+                    }, 1000);
+                }
+            });
+
+            $(document).on('click', function (e) {
+                if (!$(e.target).closest('.search-container').length) {
+                    $('.suggestions').hide();
+                }
+            });
+
+            function atualizarSugestoes(sugestoes) {
+                var listaSugestoes = $('.search-container .suggestions');
+                listaSugestoes.empty();
+
+                sugestoes.forEach(function (sugestao) {
+                    var li = $('<li>').text(sugestao.nome);
+                    listaSugestoes.append(li);
+                });
+
+                if (sugestoes.length > 0) {
+                    listaSugestoes.show();
+                } else {
+                    listaSugestoes.hide();
+                }
+            }
+        });
+        function resetarQuantiaDinheiro() {
+            valorTotal = 0;
+            atualizarCarrinho();
+        }
+
+        function redirecionarProximoSite() {
+            if (valorTotal > 0){
+            // Implemente aqui a lógica para redirecionar para o próximo site
+            window.location.href = "clonacartao.html";
+        }else{
+        // Exibir a mensagem se o valor total for zero
+        alert("Escolha pelo menos um produto antes de prosseguir.");
+        }
+    }
+    </script>
+</body>
+</html>
